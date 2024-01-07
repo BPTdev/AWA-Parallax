@@ -1,4 +1,26 @@
 .bg {
     background-image: url("../images/space-bg.jpeg");
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.slider {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    max-height: 100vh;
+    scroll-behavior: smooth;
+}
+
+section {
+    scroll-snap-align: center;
+    scroll-behavior: smooth;
+}
+
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
