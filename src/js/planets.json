@@ -3,83 +3,92 @@
         {
             "id": "mercury",
             "position": {
-                "x": 50,
-                "y": 0
+                "x": -248,
+                "y": -480
             },
-            "speedx": 1,
-            "speedy": 1
+            "speedx": 0.1,
+            "speedy": 0.1,
+            "scale": 1
         },
         {
             "id": "venus",
             "position": {
-                "x": 100,
-                "y": 0
+                "x": 300,
+                "y": -340
             },
-            "speedx": 1,
-            "speedy": 1
+            "speedx": 0.3,
+            "speedy": 0.3,
+            "scale": 1
         },
         {
             "id": "earth",
             "position": {
-                "x": 150,
-                "y": 0
+                "x": 675,
+                "y": -450
             },
-            "speedx": 1,
-            "speedy": 1
+            "speedx": 0.8,
+            "speedy": 0.8,
+            "scale": 1
         },
         {
             "id": "mars",
             "position": {
-                "x": 200,
-                "y": 0
+                "x": 285,
+                "y": -800
             },
-            "speedx": 1,
-            "speedy": 1
+            "speedx": 0.4,
+            "speedy": 0.4,
+            "scale": 1
         },
         {
             "id": "jupiter",
             "position": {
-                "x": 0,
-                "y": 1000
+                "x": 532.5,
+                "y": -200
             },
-            "speedx": 1,
-            "speedy": 1
+            "speedx": 0.35,
+            "speedy": 0.35,
+            "scale": 1
         },
         {
             "id": "saturn",
             "position": {
-                "x": 300,
-                "y": 0
+                "x": -585,
+                "y": -500
             },
-            "speedx": 1,
-            "speedy": 1
+            "speedx": 0.3,
+            "speedy": 0.3,
+            "scale": 1
         },
         {
             "id": "uranus",
             "position": {
-                "x": 350,
-                "y": 0
+                "x": -62,
+                "y": -460
             },
-            "speedx": 1,
-            "speedy": 1
+            "speedx": 0.25,
+            "speedy": 0.25,
+            "scale": 1
         },
         {
             "id": "neptune",
             "position": {
-                "x": 400,
-                "y": 0
+                "x": -214,
+                "y": -500
             },
             "speedx": 1,
-            "speedy": 1
+            "speedy": 1,
+            "scale": 1
         },
         {
             "id": "sun",
             "position": {
-                "x": 400,
-                "y": 0
+                "x": -320,
+                "y": -500
             },
-            "speedx": 1,
-            "speedy": 1
+            "speedx": 0.05,
+            "speedy": 0.05,
+            "scale": 0.1
         }
     ]
-}
+}    

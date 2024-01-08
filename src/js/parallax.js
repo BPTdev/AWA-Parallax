@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', start);
 
 var planets = [];
+var parallaxEnable = true;
 
 function start() {
-
     fetch('src/js/planets.json', { cache: 'no-cache' })
         .then(response => {
             if (!response.ok) {
@@ -21,7 +21,6 @@ function start() {
             console.error('Error loading JSON:', error);
         });
 
-
     setupMouseMove();
 }
 
@@ -29,7 +28,7 @@ function initializePlanets() {
     planets.forEach(planet => {
         var element = document.getElementById(planet.id);
         if (element) {
-            element.style.transform = `translateX(${planet.x}px) translateY(${planet.y}px)`;
+            element.style.transform = `translateX(${planet.position.x}px) translateY(${planet.position.y}px)`;
         }
     });
 }
@@ -37,41 +36,26 @@ function initializePlanets() {
 function setupMouseMove() {
     var centerPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     var inertia = 0.1;
-    var prevMousePos = { x: 0, y: 0 };
     var mousePos = { x: 0, y: 0 };
 
     document.addEventListener('mousemove', function (e) {
+        if (!parallaxEnable) return;
+
         var baseSpeed = 0.5;
-        var newX = (e.pageX - centerPos.x) * baseSpeed;
-        var newY = (e.pageY - centerPos.y) * baseSpeed;
-        var deltaX = newX - mousePos.x;
-        var deltaY = newY - mousePos.y;
-        deltaX *= inertia;
-        deltaY *= inertia;
-        mousePos.x += deltaX;
-        mousePos.y += deltaY;
+        var deltaX = (e.pageX - centerPos.x) * baseSpeed - mousePos.x;
+        var deltaY = (e.pageY - centerPos.y) * baseSpeed - mousePos.y;
+
+        mousePos.x += deltaX * inertia;
+        mousePos.y += deltaY * inertia;
 
         applyEffects(planets, mousePos, baseSpeed);
-
-        prevMousePos.x = mousePos.x;
-        prevMousePos.y = mousePos.y;
     });
 }
 
-function applyEffect() {
-    var speedX = element.speedX || 1;
-    var speedY = element.speedY || 1;
-
-    speedX *= baseSpeed;
-    speedY *= baseSpeed;
-
-    moveObject(element, mousePos, speedX, speedY);
-}
 function applyEffects(elements, mousePos, baseSpeed) {
-    console.log(elements);
     elements.forEach(element => {
-        var speedX = element.speedX || 1;
-        var speedY = element.speedY || 1;
+        var speedX = element.speedx || 1;
+        var speedY = element.speedy || 1;
 
         speedX *= baseSpeed;
         speedY *= baseSpeed;
@@ -85,46 +69,36 @@ function moveObjects(element, mousePos, speedX, speedY) {
     document.getElementById(element.id).style.transform = transformString;
 }
 
-function snapToGrid(element, targetX, targetY, deviationX = 0, deviationY = 0, duration = 4000) {
-    var computedStyle = window.getComputedStyle(element);
-    var transform = computedStyle.transform || computedStyle.webkitTransform || computedStyle.mozTransform;
-    var matrix = transform.match(/^matrix\((.+)\)$/);
+function snapToGrid(element, targetX, targetY, scaleTarget, duration = 4000) {
+    var elementRect = element.getBoundingClientRect();
+    var elementX = elementRect.left + window.scrollX;
+    var elementY = elementRect.top + window.scrollY;
 
-    var elementX, elementY;
-    if (matrix) {
-        var values = matrix[1].split(', ');
-        elementX = parseFloat(values[4]);
-        elementY = parseFloat(values[5]);
-    } else {
-        var rect = element.getBoundingClientRect();
-        elementX = rect.left;
-        elementY = rect.top;
-    }
+    var adjustedTargetX = (targetX - element.offsetWidth * (1 - scaleTarget) / 2) / scaleTarget;
+    var adjustedTargetY = (targetY - element.offsetHeight * (1 - scaleTarget) / 2) / scaleTarget;
 
     var startTime;
-
     function animate(currentTime) {
-        if (!startTime) {
-            startTime = currentTime;
-        }
-
+        if (!startTime) startTime = currentTime;
         var elapsedTime = currentTime - startTime;
 
         if (elapsedTime >= duration) {
-            // Si la durée est écoulée, placez l'élément aux coordonnées finales
-            element.style.transform = `translateX(${targetX + deviationX}px) translateY(${targetY + deviationY}px)`;
+            element.style.transform = `translate(${adjustedTargetX}px, ${adjustedTargetY}px) scale(${scaleTarget})`;
         } else {
-            // Sinon, continuez l'animation
             var progress = elapsedTime / duration;
-            var newX = elementX + (targetX - elementX + deviationX) * progress;
-            var newY = elementY + (targetY - elementY + deviationY) * progress;
-            element.style.transform = `translateX(${newX}px) translateY(${newY}px)`;
-
-            // Demandez une nouvelle frame d'animation
+            var newX = elementX + (adjustedTargetX - elementX) * progress;
+            var newY = elementY + (adjustedTargetY - elementY) * progress;
+            var newScale = 1 + (scaleTarget - 1) * progress;
+            element.style.transform = `translate(${newX}px, ${newY}px) scale(${newScale})`;
             requestAnimationFrame(animate);
         }
     }
-
-    // Lancez l'animation
     requestAnimationFrame(animate);
+}
+
+function makeThemFlat() {
+    planets.forEach(thing => {
+        var element = document.getElementById(thing.id);
+        snapToGrid(element, thing.position.x, thing.position.y, 0.1); // Example scale target
+    });
 }
