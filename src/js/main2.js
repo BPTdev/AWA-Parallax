@@ -1,50 +1,49 @@
 document.addEventListener('DOMContentLoaded', start);
+
 var planets = [];
-var planetsID = [];
-function moveObject(planet, mousePos, speedX, speedY) {
-    var transformString = `translateX(${(-mousePos.x * speedX)}px) translateY(${(-mousePos.y * speedY)}px)`;
-    planet.style.transform = transformString;
-}
 
 function start() {
+    fetch('src/js/planets.json', { cache: 'no-cache' })
+        .then(response => {
+            if (!response.ok) {
+                console.error('Network response was not ok')
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            planets = data.things;
+            initializePlanets();
+            console.log('Content of planets.json:', data);
+        })
+        .catch(error => {
+            console.error('Error loading JSON:', error);
+        });
+
+
+    setupMouseMove();
+}
+
+function initializePlanets() {
+    planets.forEach(planet => {
+        var element = document.getElementById(planet.id);
+        if (element) {
+            element.style.transform = `translateX(${planet.x}px) translateY(${planet.y}px)`;
+        }
+    });
+}
+
+function setupMouseMove() {
     var centerPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-
-    try {
-        fetch('src/js/planets.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                planets = data.planets;
-                console.log('Content of planets.json:', data); // Log the content to the console
-            })
-            .catch(error => {
-                console.error('Error loading JSON:', error);
-
-            });
-    } catch (error) {
-        console.error('Error in fetch:', error);
-    }
-
-
-
-
-    var sun = document.getElementsByClassName('sun');
-
     var inertia = 0.1;
     var prevMousePos = { x: 0, y: 0 };
     var mousePos = { x: 0, y: 0 };
+    var sun = document.getElementsByClassName('sun');
 
     document.addEventListener('mousemove', function (e) {
         var baseSpeed = 0.5;
-
         var newX = (e.pageX - centerPos.x) * baseSpeed;
         var newY = (e.pageY - centerPos.y) * baseSpeed;
-
-        // Intertia effect
         var deltaX = newX - mousePos.x;
         var deltaY = newY - mousePos.y;
         deltaX *= inertia;
@@ -52,23 +51,17 @@ function start() {
         mousePos.x += deltaX;
         mousePos.y += deltaY;
 
-
-        planets.forEach(element => {
-            planetsID.push(this.getElementById(element.id))
-        });
-
-
         applyEffect(planets, mousePos, baseSpeed);
         applyEffect(sun, mousePos, baseSpeed);
 
-        // Mettez à jour la position précédente de la souris
         prevMousePos.x = mousePos.x;
         prevMousePos.y = mousePos.y;
     });
 }
 
 function applyEffect(elements, mousePos, baseSpeed) {
-    Array.from(elements).forEach(element => {
+    console.log(elements);
+    elements.forEach(element => {
         var speedX = element.speedX || 1;
         var speedY = element.speedY || 1;
 
@@ -126,13 +119,4 @@ function snapToGrid(element, targetX, targetY, deviationX = 0, deviationY = 0, d
 
     // Lancez l'animation
     requestAnimationFrame(animate);
-}
-
-function applySnapToGridToPlanets(planets) {
-    planets.forEach(planet => {
-        var element = document.getElementById(planet.id);
-        if (element) {
-            snapToGrid(element, planet.position.x, planet.position.y);
-        }
-    });
 }

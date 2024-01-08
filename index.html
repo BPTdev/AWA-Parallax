@@ -6,44 +6,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/dist/output.css" rel="stylesheet">
-    <script src="src/js/main.js"></script>
+    <script src="src/js/main2.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="src/css/main.css">
 </head>
 
 <body class="flex flex-col">
     <div class="relative w-screen h-screen flex items-center justify-center bg">
-        <div class="absolute sun left-1/2 top-1/2 mt-[-16rem] ml-[-16rem] z-50 trigger" data-speedx="0.05"
-            data-speedy="0.03">
+        <div class="absolute sun left-1/3 top-1/2 mt-[-16rem] ml-[-16rem] z-50 trigger" data-speedx="0.05"
+            data-speedy="0.03" onclick="snapToGrid(document.getElementById('jupiter'),-400,600)">
             <img src="src/images/sun.png" class="w-[550px] h-[550px]" alt="">
         </div>
-        <div class="planet absolute left-1/6 z-[51]" data-speedx="1" data-speedy="1">
+        <div id="mercury" class="planet absolute left-80 z-[51]" data-speedx="1" data-speedy="1">
             <img src="src/images/mercury.png" class="w-5 h-5" alt="">
         </div>
-        <div class="planet absolute left-1/3 z-[51]" data-speedx="1" data-speedy="1">
+        <div id="mars" class="planet absolute top-20 right-80 z-[51]" data-speedx="1" data-speedy="1">
             <img src="src/images/mars.png" class="w-7 h-7" alt="">
         </div>
-        <div class="planet absolute left-1/4" data-speedx="1" data-speedy="1">
+        <div id="venus" class="planet absolute left-1/4" data-speedx="1" data-speedy="1">
             <img src="src/images/venus.png" class="w-9 h-9" alt="">
         </div>
-        <div class="planet absolute left-44 z-[101]" data-speedx="1" data-speedy="1">
+        <div id="earth" class="planet absolute  z-[101]" data-speedx="1" data-speedy="1">
             <img src="src/images/earth.png" class="w-9 h-9" alt="">
         </div>
-        <div class="planet absolute right-1/3" data-speedx="1" data-speedy="1">
+        <div id="jupiter" class="planet absolute " data-speedx="1" data-speedy="1">
             <img src="src/images/jupiter.png" class="w-80 h-80" alt="">
         </div>
-        <div class="planet absolute left-3/4" data-speedx="1" data-speedy="1">
+        <div id="neptune" class="planet absolute left-3/4" data-speedx="1" data-speedy="1">
             <img src="src/images/neptune.png" class="w-16 h-16" alt="">
         </div>
-        <div class="planet absolute right-1/3 z-[51]" data-speedx="1" data-speedy="1">
+        <div id="uranus" class="planet absolute right-1/3 z-[51]" data-speedx="1" data-speedy="1">
             <img src="src/images/uranus.png" class="w-16 h-16" alt="">
         </div>
-        <div class="planet absolute right-3/4" data-speedx="1" data-speedy="1">
+        <div id="saturn" class="planet absolute right-3/4" data-speedx="1" data-speedy="1">
             <img src="src/images/saturn.png" class="" alt="">
         </div>
+        
     </div>
     <div class="w-screen h-screen bg">
-        Bonjour
     </div>
 </body>
 
