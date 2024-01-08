@@ -23,4 +23,9 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    overflow-x: hidden;
+}
+
+.disable-scroll-snap {
+    scroll-snap-type: none !important;
 }

@@ -3,21 +3,7 @@ document.addEventListener('DOMContentLoaded', start);
 var parallaxEnable = true;
 
 function start() {
-    var centerPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    var planets = document.getElementsByClassName('planet');
-    var sun = document.getElementsByClassName('sun');
     var slider = document.getElementsByClassName('slider');
-
-    document.addEventListener('mousemove', function (e) {
-        var baseSpeed = 0.5;
-        var mousePos = {
-            x: (e.pageX - centerPos.x) * baseSpeed,
-            y: (e.pageY - centerPos.y) * baseSpeed
-        };
-
-        applyEffect(planets, mousePos, baseSpeed);
-        applyEffect(sun, mousePos, baseSpeed);
-    });
 
     slider[0].addEventListener('scroll', function (e) {
         if (slider[0].scrollTop == 0) {
@@ -30,12 +16,20 @@ function start() {
     var sections = slider[0].children;
     var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
-            if (entry.intersectionRatio > 0) {
-                if (entry.isIntersecting && entry.target.id != 'system') {
-                    var item = entry.target.id + 'Img';
-                    var planet = document.getElementById(item);
+            if (entry.target.id != 'system') {
+                var item = entry.target.id + 'Img';
+                var planet = document.getElementById(item);
+                console.log(item);
+                if (entry.isIntersecting) {
+                    slider[0].classList.add('disable-scroll-snap');
+                    planet.style.visibility = 'visible';
 
-                    gsap.fromTo(planet, { x: 1000 }, { x: 0, duration: 1 });
+                    gsap.fromTo(planet, { x: 1000, opacity: 0 }, { x: 0, opacity: 1, duration: 1 })
+                        .then(() => {
+                            slider[0].classList.remove('disable-scroll-snap');
+                        });
+                } else {
+                    planet.style.visibility = 'hidden';
                 }
             }
         });
