@@ -71,6 +71,15 @@
             },
             "speedx": 1,
             "speedy": 1
+        },
+        {
+            "id": "sun",
+            "position": {
+                "x": 400,
+                "y": 0
+            },
+            "speedx": 1,
+            "speedy": 1
         }
     ]
 }

@@ -51,15 +51,22 @@ function setupMouseMove() {
         mousePos.x += deltaX;
         mousePos.y += deltaY;
 
-        applyEffect(planets, mousePos, baseSpeed);
-        applyEffect(sun, mousePos, baseSpeed);
+        applyEffects(planets, mousePos, baseSpeed);
 
         prevMousePos.x = mousePos.x;
         prevMousePos.y = mousePos.y;
     });
 }
+function applyEffect(){
+    var speedX = element.speedX || 1;
+        var speedY = element.speedY || 1;
 
-function applyEffect(elements, mousePos, baseSpeed) {
+        speedX *= baseSpeed;
+        speedY *= baseSpeed;
+
+        moveObject(element, mousePos, speedX, speedY);
+}
+function applyEffects(elements, mousePos, baseSpeed) {
     console.log(elements);
     elements.forEach(element => {
         var speedX = element.speedX || 1;
@@ -68,11 +75,11 @@ function applyEffect(elements, mousePos, baseSpeed) {
         speedX *= baseSpeed;
         speedY *= baseSpeed;
 
-        moveObject(element, mousePos, speedX, speedY);
+        moveObjects(element, mousePos, speedX, speedY);
     });
 }
 
-function moveObject(element, mousePos, speedX, speedY) {
+function moveObjects(element, mousePos, speedX, speedY) {
     var transformString = `translateX(${(-mousePos.x * speedX)}px) translateY(${(-mousePos.y * speedY)}px)`;
     document.getElementById(element.id).style.transform = transformString;
 }
