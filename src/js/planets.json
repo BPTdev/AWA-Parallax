@@ -1,0 +1,85 @@
+{
+    "things": [
+        {
+            "id": "mercury",
+            "position": {
+                "x": 50,
+                "y": 0
+            },
+            "speedx": 1,
+            "speedy": 1
+        },
+        {
+            "id": "venus",
+            "position": {
+                "x": 100,
+                "y": 0
+            },
+            "speedx": 1,
+            "speedy": 1
+        },
+        {
+            "id": "earth",
+            "position": {
+                "x": 150,
+                "y": 0
+            },
+            "speedx": 1,
+            "speedy": 1
+        },
+        {
+            "id": "mars",
+            "position": {
+                "x": 200,
+                "y": 0
+            },
+            "speedx": 1,
+            "speedy": 1
+        },
+        {
+            "id": "jupiter",
+            "position": {
+                "x": 0,
+                "y": 1000
+            },
+            "speedx": 1,
+            "speedy": 1
+        },
+        {
+            "id": "saturn",
+            "position": {
+                "x": 300,
+                "y": 0
+            },
+            "speedx": 1,
+            "speedy": 1
+        },
+        {
+            "id": "uranus",
+            "position": {
+                "x": 350,
+                "y": 0
+            },
+            "speedx": 1,
+            "speedy": 1
+        },
+        {
+            "id": "neptune",
+            "position": {
+                "x": 400,
+                "y": 0
+            },
+            "speedx": 1,
+            "speedy": 1
+        },
+        {
+            "id": "sun",
+            "position": {
+                "x": 400,
+                "y": 0
+            },
+            "speedx": 1,
+            "speedy": 1
+        }
+    ]
+}
