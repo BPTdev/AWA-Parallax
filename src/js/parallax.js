@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', start);
 var planets = [];
 
 function start() {
+
     fetch('src/js/planets.json', { cache: 'no-cache' })
         .then(response => {
             if (!response.ok) {
@@ -38,7 +39,7 @@ function setupMouseMove() {
     var inertia = 0.1;
     var prevMousePos = { x: 0, y: 0 };
     var mousePos = { x: 0, y: 0 };
-    var sun = document.getElementsByClassName('sun');
+    var slider = document.getElementsByClassName('slider');
 
     document.addEventListener('mousemove', function (e) {
         var baseSpeed = 0.5;
@@ -56,6 +57,35 @@ function setupMouseMove() {
         prevMousePos.x = mousePos.x;
         prevMousePos.y = mousePos.y;
     });
+    setupScrollSnap(slider)
+}
+function setupScrollSnap(slider)
+{
+    slider[0].addEventListener('scroll', function (e) {
+        if (slider[0].scrollTop == 0) {
+            parallaxEnable = true;
+        } else {
+            parallaxEnable = false;
+        }
+    });
+
+    var sections = slider[0].children;
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.intersectionRatio > 0) {
+                if (entry.isIntersecting && entry.target.id != 'system') {
+                    var item = entry.target.id + 'Img';
+                    var planet = document.getElementById(item);
+
+                    gsap.fromTo(planet, { x: 1000 }, { x: 0, duration: 1 });
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    for (var i = 0; i < sections.length; i++) {
+        observer.observe(sections[i]);
+    }
 }
 function applyEffect(){
     var speedX = element.speedX || 1;
