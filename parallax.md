@@ -1,0 +1,61 @@
+# Effet Parallaxe
+## Qu'est-ce que le Parallaxe ?
+- **Définition :**
+  - Le parallaxe est une technique de design et de programmation utilisée pour créer une illusion de profondeur dans une scène 2D. 
+  - Il s'agit d'un effet visuel où les objets placés à différentes distances se déplacent à des vitesses différentes lors du défilement ou du mouvement de la souris.
+
+## Non utilisation de bibliothèques 
+Pour réaliser cet effet, nous avons décidé de ne pas utiliser de bibliothèques.
+Cela permet de pouvoir comprendre le fonctionnement de l'effet et de pouvoir le modifier plus facilement.  
+L'inconvénient est que cela demande plus de temps pour le réaliser.
+Mais une fois fonctionnel il est aisé de l'utiliser avec les éléments de notre projet.
+
+## Explications des Fonctions JavaScript pour l'Effet Parallaxe
+
+### 1. Fonction `start()`
+- **Paramètres :** Aucun.
+- **Description :**
+  - Appelée lorsque le DOM est complètement chargé.
+  - Récupère les données depuis 'planets.json'.
+  - Stocke ces données dans la variable `planets`.
+  - Appelle la fonction `setupMouseMove()`.
+
+### 2. Fonction `setupMouseMove()`
+- **Paramètres :** Aucun.
+- **Description :**
+  - Configure un écouteur d'événements pour les mouvements de la souris.
+  - Calcule les valeurs de déplacement basées sur la position de la souris.
+  - Applique ces valeurs aux planètes pour créer l'effet de parallaxe.
+  
+- **Effet :**
+  - Lorsque la souris se déplace vers la droite, les planètes se déplacent vers la gauche.
+  - Lorsque la souris se déplace vers le haut, les planètes se déplacent vers le bas.
+  - Lorsque la souris se déplace vers la gauche, les planètes se déplacent vers la droite.
+  - Lorsque la souris se déplace vers le bas, les planètes se déplacent vers le haut.
+  - De l'inertie est ajoutée pour créer un effet de "glissement".
+  - Les planètes les plus proches du point d'observation se déplacent plus rapidement que les planètes plus éloignées.
+
+### 3. Fonction `applyEffects(elements, mousePos, baseSpeed)`
+- **Paramètres :**
+  - `elements` : Tableau d'éléments (planètes) à déplacer.
+  - `mousePos` : Position actuelle de la souris.
+  - `baseSpeed` : Vitesse de base pour le mouvement parallaxe.
+- **Description :**
+  - Parcourt chaque élément du tableau `elements`.
+  - Applique un effet de mouvement basé sur la position de la souris.
+  - Utilise les vitesses spécifiques de chaque élément.
+### 4. Fonction `moveObjects(element, mousePos, speedX, speedY)`
+- **Paramètres :**
+  - `element` : Élément HTML (planète) à déplacer.
+  - `mousePos` : Position actuelle de la souris.
+  - `speedX`, `speedY` : Vitesses de déplacement en X et Y.
+- **Description :**
+  - Calcule le déplacement en X et Y basé sur la position de la souris et les vitesses.
+  - Applique ce déplacement à l'élément donné pour créer l'effet de parallaxe.
+
+
+## Stockage des Données relatives aux Planètes
+
+- Les données relatives aux planètes sont stockées dans un fichier JSON.
+- Ce fichier est chargé par le script JavaScript au démarrage.
+- Les données stockée dans un JSON permettent de facilement ajouter ou supprimer des planètes et modifier leurs vitesses et placements.
