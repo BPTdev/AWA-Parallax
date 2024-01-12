@@ -14,7 +14,7 @@ function start() {
         })
         .then(data => {
             planets = data.things;
-            initializePlanets();
+            //initializePlanets();
             console.log('Content of planets.json:', data);
         })
         .catch(error => {
