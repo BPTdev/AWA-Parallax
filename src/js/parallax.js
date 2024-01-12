@@ -14,7 +14,6 @@ function start() {
         })
         .then(data => {
             planets = data.things;
-            //initializePlanets();
             console.log('Content of planets.json:', data);
         })
         .catch(error => {
@@ -24,14 +23,6 @@ function start() {
     setupMouseMove();
 }
 
-function initializePlanets() {
-    planets.forEach(planet => {
-        var element = document.getElementById(planet.id);
-        if (element) {
-            element.style.transform = `translateX(${planet.position.x}px) translateY(${planet.position.y}px)`;
-        }
-    });
-}
 
 function setupMouseMove() {
     var centerPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
