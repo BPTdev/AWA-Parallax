@@ -1,3 +1,6 @@
+# AWA1 - Projet Scroll / Parallax
+Benoit Pierrehumbert & Thomas Grossmann
+
 # Effet Parallaxe
 ## Qu'est-ce que le Parallaxe ?
 - **Définition :**
