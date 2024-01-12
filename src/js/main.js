@@ -16,7 +16,7 @@ function start() {
     var sections = slider[0].children;
     var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
-            if (entry.target.id != 'system') {
+            if (entry.target.id != 'section-system') {
                 var img = entry.target.id + 'Img';
                 var txt = entry.target.id + 'Text';
                 var planet = document.getElementById(img);
@@ -27,12 +27,9 @@ function start() {
                     planet.style.visibility = 'visible';
                     description.style.visibility = 'visible';
 
-                    gsap.fromTo(planet, { x: 1000, opacity: 0 }, { x: 0, opacity: 1, duration: 1 })
-                        .then(() => {
-                            slider[0].classList.remove('disable-scroll-snap');
-                        });
+                    gsap.fromTo(planet, { x: 1000, opacity: 0 }, { x: 0, opacity: 1, duration: 0.75, onComplete: function () { slider[0].classList.remove('disable-scroll-snap'); } });
 
-                    gsap.fromTo(description, { opacity: 0 }, { opacity: 1, duration: 1 })
+                    gsap.fromTo(description, { x: -500, opacity: 0 }, { x: 0, opacity: 1, duration: 0.75 })
                 } else {
                     planet.style.visibility = 'hidden';
                     description.style.visibility = 'hidden';
