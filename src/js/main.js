@@ -17,19 +17,25 @@ function start() {
     var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
             if (entry.target.id != 'system') {
-                var item = entry.target.id + 'Img';
-                var planet = document.getElementById(item);
-                console.log(item);
+                var img = entry.target.id + 'Img';
+                var txt = entry.target.id + 'Text';
+                var planet = document.getElementById(img);
+                var description = document.getElementById(txt);
+
                 if (entry.isIntersecting) {
                     slider[0].classList.add('disable-scroll-snap');
                     planet.style.visibility = 'visible';
+                    description.style.visibility = 'visible';
 
                     gsap.fromTo(planet, { x: 1000, opacity: 0 }, { x: 0, opacity: 1, duration: 1 })
                         .then(() => {
                             slider[0].classList.remove('disable-scroll-snap');
                         });
+
+                    gsap.fromTo(description, { opacity: 0 }, { opacity: 1, duration: 1 })
                 } else {
                     planet.style.visibility = 'hidden';
+                    description.style.visibility = 'hidden';
                 }
             }
         });

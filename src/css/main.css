@@ -14,7 +14,7 @@
 }
 
 section {
-    scroll-snap-align: center;
+    scroll-snap-align: start;
     scroll-behavior: smooth;
 }
 
@@ -23,7 +23,6 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    overflow-x: hidden;
 }
 
 .disable-scroll-snap {
