@@ -4,6 +4,7 @@ var parallaxEnable = true;
 
 function start() {
     var slider = document.getElementsByClassName('slider');
+    var sections = slider[0].children;
 
     slider[0].addEventListener('scroll', function (e) {
         if (slider[0].scrollTop == 0) {
@@ -13,7 +14,6 @@ function start() {
         }
     });
 
-    var sections = slider[0].children;
     var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
             if (entry.target.id != 'section-system') {
@@ -41,23 +41,4 @@ function start() {
     for (var i = 0; i < sections.length; i++) {
         observer.observe(sections[i]);
     }
-}
-
-function applyEffect(planets, mousePos, baseSpeed) {
-    if (parallaxEnable) {
-        Array.from(planets).forEach(planet => {
-            var speedX = parseFloat(planet.dataset.speedx) || 1;
-            var speedY = parseFloat(planet.dataset.speedy) || 1;
-
-            speedX *= baseSpeed;
-            speedY *= baseSpeed;
-
-            moveObject(planet, mousePos, speedX, speedY);
-        });
-    }
-}
-
-function moveObject(planet, mousePos, speedX, speedY) {
-    var transformString = `translateX(${(-mousePos.x * speedX)}px) translateY(${(-mousePos.y * speedY)}px)`;
-    planet.style.transform = transformString;
 }
